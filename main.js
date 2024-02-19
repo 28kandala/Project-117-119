@@ -16,3 +16,52 @@ timer_check=0;
 drawn_sketch=0;
 answer_holder=0;
 score=0;
+
+function newsketch(){
+    random_no = Math.floor(Math.random() * array_length);+
+    console.log(random_no);
+    selected_sketch= quick_draw_data_set[random_no];
+    console.log(selected_sketch);
+    document.getElementById("drawn_sketch").innerHTML="Sketch to be drawn:    " + selected_sketch;
+
+ }
+
+ newsketch();
+
+document.getElementById("score").innerHTML= "Score: "+ score;
+
+
+function updateCanvas() {
+    background("white");
+}
+
+function draw(){
+   check_sketch(); 
+}
+
+function check_sketch(){
+
+    timer_counter++;
+    document.getElementById("timer").innerHTML= "Timer: "+ timer_counter;
+    console.log(timer_counter);
+   
+    if(drawn_sketch==selected_sketch){
+        answer_holder= "set";
+        score= score+1;
+        document.getElementById("score").innerHTML= "Score: "+ score;
+    }
+    
+    if(timer_counter>500){
+        timer_counter=0;
+        newsketch();
+        document.getElementById("timer").innerHTML= "Timer: "+ timer_counter;
+        timer_check= "completed";
+        
+    }
+    
+    if(timer_check== "completed" || answer_holder== "set"){
+        timer_check= "";
+        answer_holder= "";
+        updateCanvas();
+    }
+}
